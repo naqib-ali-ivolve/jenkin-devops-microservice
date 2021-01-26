@@ -14,15 +14,14 @@
 //SCRIPTED
 
 pipeline{
-	agent none 
+	//agent any
+	agent { docker { image 'maven:3.6.3' } }
 	stages{
 		stage('Build'){
-			agent {
-                docker { image 'maven:3-alpine' }
-            }
-            steps {
-                sh 'mvn --version'
-            }
+			steps{
+				sh 'mvn --version'
+				echo "Build"
+			}
 		}
 		stage('Test'){
 			steps{
