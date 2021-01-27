@@ -14,20 +14,24 @@
 //SCRIPTED
 
 pipeline{
-	//agent any
-	agent { 
-		docker{
-			image 'node:13.8' 
-			//image 'maven:3.6.3'
-			//args '-u root --privileged' 
-		} 
-	}
+	agent any
+	// agent { 
+	// 	docker{
+	// 		image 'node:13.8' 
+	// 		//image 'maven:3.6.3'
+	// 		//args '-u root --privileged' 
+	// 	} 
+	// }
 	stages{
 		stage('Build'){
 			steps{
 				//sh 'mvn --version'
-				sh 'node --version'
+				//sh 'node --version'
 				echo "Build"
+				echo "Path  - $PATH"
+				echo "Build_Number - $env.BUILD_NUMBER"
+				echo "Build_Id - $env.BULID_ID"
+
 			}
 		}
 		stage('Test'){
