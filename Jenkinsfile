@@ -22,11 +22,17 @@ pipeline{
 	// 		//args '-u root --privileged' 
 	// 	} 
 	// }
+	environment{
+		dockerHome =  tool 'myDocker'
+		mavenHome = tool 'myDocker'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+	}
 	stages{
 		stage('Build'){
 			steps{
-				//sh 'mvn --version'
+				sh 'mvn --version'
 				//sh 'node --version'
+				sh 'docker version'
 				echo "Build"
 				echo "Path  - $PATH"
 				echo "Build_Number - $env.BUILD_NUMBER"
