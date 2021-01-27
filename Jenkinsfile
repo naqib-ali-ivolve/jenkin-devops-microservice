@@ -14,13 +14,13 @@
 //SCRIPTED
 
 pipeline{
-	agent any
-	// agent { 
-	// 	docker{ 
-	// 		image 'maven:3.6.3'
-	// 		args '-u root --privileged' 
-	// 	} 
-	// }
+	//agent any
+	agent { 
+		docker{ 
+			image 'maven:3.6.3'
+			//args '-u root --privileged' 
+		} 
+	}
 	stages{
 		stage('Build'){
 			steps{
