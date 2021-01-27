@@ -22,17 +22,17 @@ pipeline{
 	// 		//args '-u root --privileged' 
 	// 	} 
 	// }
-	environment{
+	environment{ 
 		dockerHome =  tool 'myDocker'
 		mavenHome = tool 'myMaven'
 		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 	stages{
-		stage('Build'){
+		stage('Checkout'){
 			steps{
 				sh 'mvn --version'
 				//sh 'node --version'
-				sh 'docker version'
+				//sh 'docker version'
 				echo "Build"
 				echo "Path  - $PATH"
 				echo "Build_Number - $env.BUILD_NUMBER"
@@ -40,14 +40,19 @@ pipeline{
 
 			}
 		}
+		stage('Build'){
+			steps{
+				sh "mvn clean compile"
+			}
+		}
 		stage('Test'){
 			steps{
-				echo "Build"
+				sh "mvm test"
 			}
 		}
 		stage('Integration Test'){
 			steps{
-				echo "Integration Test"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
 	}
