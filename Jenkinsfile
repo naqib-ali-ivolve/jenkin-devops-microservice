@@ -64,7 +64,7 @@ pipeline{
 			steps{
 				//"docker build -t in28min/currency-exchange-microservice:$env.BUILD_TAG"
 				script{
-					dockerImage = docker.build("cryp301/currency-exchange-microservice:{$env.BUILD_TAG}")
+					dockerImage = docker.build("cryp301/currency-exchange-microservice:${env.BUILD_TAG}")
 				}
 			}
 		}
