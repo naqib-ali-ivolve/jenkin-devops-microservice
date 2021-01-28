@@ -55,6 +55,29 @@ pipeline{
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
+		stage('Package'){
+			steps{
+				sh "mvn package -DskipTests"
+			}
+		}
+		stage('Build Docker Image'){
+			steps{
+				//"docker build -t in28min/currency-exchange-microservice:$env.BUILD_TAG"
+				script{
+					dockerImage = docker.build("cryp301/currency-exchange-microservice:{$env.BUILD_TAG}")
+				}
+			}
+		}
+		stage ('Push Docker Image'){
+			steps{
+				script{
+					docker.withRegistry('', 'dockerHub'){
+					dockerImage.push();
+					dockerImage.push('latest');
+					}
+				}
+			}
+		}
 	}
 	post{
 		always{
